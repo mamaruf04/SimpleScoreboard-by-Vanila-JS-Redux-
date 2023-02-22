@@ -2,6 +2,7 @@ const ParentMatch = document.querySelector(".all-matches");
 const matches = ParentMatch.children;
 const addNewMatch = document.querySelector(".add_match button");
 const resetBtn = document.querySelector(".lws-reset");
+const initialScore = document.querySelector(`.numbers h2`)
 
 const initialState = [
   {
@@ -13,7 +14,6 @@ const initialState = [
 const scoreReducer = (state = initialState, action) => {
   if (action.type === "increment") {
     return state.map((item) => {
-      console.log(item.value, action.payload.value);
       if (item.id == action.payload.id) {
         return {
           ...item,
@@ -61,7 +61,6 @@ const scoreReducer = (state = initialState, action) => {
 };
 
 const store = Redux.createStore(scoreReducer);
-
 const render = () => {
   const state = store.getState();
   for (const item of state) {
@@ -73,6 +72,7 @@ const render = () => {
 
 render();
 store.subscribe(render);
+
 // ------------------  DOM Part------------------
 
 const match = (matches) => {
@@ -94,6 +94,7 @@ const match = (matches) => {
 
 const fieldControl = () => {
   const ParentMatch = document.querySelector(".all-matches");
+  ParentMatch.querySelector(`.numbers h2`).innerText = 0;
   ParentMatch.addEventListener("submit", (event) => {
     event.preventDefault();
     const form = event.target;
